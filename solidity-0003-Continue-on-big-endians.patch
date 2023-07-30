@@ -1,0 +1,19 @@
+From: Peter Lemenkov <lemenkov@gmail.com>
+Date: Fri, 1 Jul 2022 11:46:42 +0200
+Subject: [PATCH] Continue on big-endians
+
+Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 80cc6e29e..bc4234642 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -29,7 +29,7 @@ project(solidity VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
+ include(TestBigEndian)
+ TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
+ if (IS_BIG_ENDIAN)
+-	message(FATAL_ERROR "${PROJECT_NAME} currently does not support big endian systems.")
++	message(WARNING "${PROJECT_NAME} currently does not support big endian systems.")
+ endif()
+ 
+ option(SOLC_LINK_STATIC "Link solc executable statically on supported platforms" OFF)

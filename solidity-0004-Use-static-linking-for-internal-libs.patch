@@ -1,0 +1,115 @@
+From: Peter Lemenkov <lemenkov@gmail.com>
+Date: Fri, 30 Dec 2022 19:13:17 +0100
+Subject: [PATCH] Use static linking for internal libs
+
+Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
+
+diff --git a/libevmasm/CMakeLists.txt b/libevmasm/CMakeLists.txt
+index 6563b2c0f..9961abddf 100644
+--- a/libevmasm/CMakeLists.txt
++++ b/libevmasm/CMakeLists.txt
+@@ -39,5 +39,5 @@ set(sources
+ 	SimplificationRules.h
+ )
+ 
+-add_library(evmasm ${sources})
++add_library(evmasm STATIC ${sources})
+ target_link_libraries(evmasm PUBLIC solutil fmt::fmt-header-only)
+diff --git a/liblangutil/CMakeLists.txt b/liblangutil/CMakeLists.txt
+index 53be57e79..8d6f67e69 100644
+--- a/liblangutil/CMakeLists.txt
++++ b/liblangutil/CMakeLists.txt
+@@ -29,5 +29,5 @@ set(sources
+ 	UniqueErrorReporter.h
+ )
+ 
+-add_library(langutil ${sources})
++add_library(langutil STATIC ${sources})
+ target_link_libraries(langutil PUBLIC solutil fmt::fmt-header-only)
+diff --git a/libsmtutil/CMakeLists.txt b/libsmtutil/CMakeLists.txt
+index af7f47b60..8927db1cf 100644
+--- a/libsmtutil/CMakeLists.txt
++++ b/libsmtutil/CMakeLists.txt
+@@ -36,7 +36,7 @@ if (${USE_Z3_DLOPEN})
+   set(z3_SRCS ${z3_SRCS} ${Z3_WRAPPER} Z3Loader.cpp Z3Loader.h)
+ endif()
+ 
+-add_library(smtutil ${sources} ${z3_SRCS} ${cvc4_SRCS})
++add_library(smtutil STATIC ${sources} ${z3_SRCS} ${cvc4_SRCS})
+ target_link_libraries(smtutil PUBLIC solutil Boost::boost)
+ 
+ if (${USE_Z3_DLOPEN})
+diff --git a/libsolc/CMakeLists.txt b/libsolc/CMakeLists.txt
+index fce54dd24..7f21284d7 100644
+--- a/libsolc/CMakeLists.txt
++++ b/libsolc/CMakeLists.txt
+@@ -15,7 +15,7 @@ if (EMSCRIPTEN)
+ 	add_executable(soljson libsolc.cpp libsolc.h)
+ 	target_link_libraries(soljson PRIVATE solidity)
+ else()
+-	add_library(libsolc libsolc.cpp libsolc.h)
++	add_library(libsolc STATIC libsolc.cpp libsolc.h)
+ 	set_target_properties(libsolc PROPERTIES OUTPUT_NAME solc)
+ 	target_link_libraries(libsolc PRIVATE solidity)
+ endif()
+diff --git a/libsolidity/CMakeLists.txt b/libsolidity/CMakeLists.txt
+index 32869ba13..0bb63970e 100644
+--- a/libsolidity/CMakeLists.txt
++++ b/libsolidity/CMakeLists.txt
+@@ -184,6 +184,5 @@ set(sources
+ 	parsing/Token.h
+ )
+ 
+-add_library(solidity ${sources})
++add_library(solidity STATIC ${sources})
+ target_link_libraries(solidity PUBLIC yul evmasm langutil smtutil solutil Boost::boost fmt::fmt-header-only Threads::Threads)
+-
+diff --git a/libsolutil/CMakeLists.txt b/libsolutil/CMakeLists.txt
+index 201429bb7..9e87a5f0a 100644
+--- a/libsolutil/CMakeLists.txt
++++ b/libsolutil/CMakeLists.txt
+@@ -44,7 +44,7 @@ set(sources
+ 	Whiskers.h
+ )
+ 
+-add_library(solutil ${sources})
++add_library(solutil STATIC ${sources})
+ target_link_libraries(solutil PUBLIC jsoncpp Boost::boost Boost::filesystem Boost::system range-v3 fmt::fmt-header-only)
+ target_include_directories(solutil PUBLIC "${PROJECT_SOURCE_DIR}")
+ add_dependencies(solutil solidity_BuildInfo.h)
+diff --git a/libyul/CMakeLists.txt b/libyul/CMakeLists.txt
+index 0bb98e467..8bd85e398 100644
+--- a/libyul/CMakeLists.txt
++++ b/libyul/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-add_library(yul
++add_library(yul STATIC
+ 	${GENERATED_POLYFILL_HEADERS}
+ 
+ 	AsmAnalysis.cpp
+diff --git a/solc/CMakeLists.txt b/solc/CMakeLists.txt
+index 8d9d2b364..18bdd3b0d 100644
+--- a/solc/CMakeLists.txt
++++ b/solc/CMakeLists.txt
+@@ -4,7 +4,7 @@ set(libsolcli_sources
+ 	Exceptions.h
+ )
+ 
+-add_library(solcli ${libsolcli_sources})
++add_library(solcli STATIC ${libsolcli_sources})
+ target_link_libraries(solcli PUBLIC solidity Boost::boost Boost::program_options)
+ 
+ set(sources main.cpp)
+diff --git a/tools/CMakeLists.txt b/tools/CMakeLists.txt
+index c67a509e1..ec1f54443 100644
+--- a/tools/CMakeLists.txt
++++ b/tools/CMakeLists.txt
+@@ -28,7 +28,7 @@ set(libphaser_sources
+ 	yulPhaser/SimulationRNG.h
+ 	yulPhaser/SimulationRNG.cpp
+ )
+-add_library(phaser ${libphaser_sources})
++add_library(phaser STATIC ${libphaser_sources})
+ target_link_libraries(phaser PUBLIC solidity Boost::boost Boost::program_options)
+ 
+ add_executable(yul-phaser yulPhaser/main.cpp)

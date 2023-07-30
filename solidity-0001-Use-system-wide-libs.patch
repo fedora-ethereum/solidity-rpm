@@ -1,0 +1,27 @@
+From: Peter Lemenkov <lemenkov@gmail.com>
+Date: Thu, 30 Jun 2022 17:13:49 +0200
+Subject: [PATCH] Use system-wide libs
+
+Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6583f7cd4..80cc6e29e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -43,10 +43,12 @@ include(EthCcache)
+ 
+ # Let's find our dependencies
+ include(EthDependencies)
+-include(fmtlib)
+-include(jsoncpp)
+-include(range-v3)
+-include_directories(SYSTEM ${JSONCPP_INCLUDE_DIR})
++
++find_package(fmt CONFIG REQUIRED)
++find_package(jsoncpp CONFIG REQUIRED)
++find_package(range-v3 CONFIG REQUIRED)
++
++#include_directories(SYSTEM ${FMTLIB_INCLUDE_DIR} ${JSONCPP_INCLUDE_DIR} ${RANGE_V3_INCLUDE_DIR})
+ 
+ find_package(Threads)
+ 
