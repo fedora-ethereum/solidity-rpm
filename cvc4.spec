@@ -118,7 +118,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Python 3 interface to %{name}.
 
 %prep
-%autosetup -p0 -n CVC4-%{version}
+%autosetup -p0 -n cvc5-%{version}
 
 # Adapt to way kissat is packaged for Fedora
 sed -i 's,#include <kissat/kissat\.h>,#include <kissat.h>,' src/prop/kissat.h
