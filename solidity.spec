@@ -14,11 +14,9 @@ Patch1:		solidity-0001-Use-system-wide-libs.patch
 Patch2:		solidity-0002-Stop-checking-for-jsoncpp-version.patch
 Patch3:		solidity-0003-Continue-on-big-endians.patch
 Patch4:		solidity-0004-Use-static-linking-for-internal-libs.patch
-%if 0%{?fedora} >= 39
 Patch5:		solidity-0005-SMTChecker-Update-CVC4-to-cvc5.patch
 Patch6:		solidity-0006-SMTChecker-Rename-CVC-interface-files.patch
 Patch7:		solidity-0007-Intentionally-failing-test.patch
-%endif
 
 
 %ifarch s390x
@@ -51,7 +49,16 @@ within the Ethereum state.
 
 
 %prep
-%autosetup -p1
+i%setup -q
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%if 0%{?fedora} >= 39
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%endif
 echo %{git_hash} > commit_hash.txt
 
 
