@@ -29,9 +29,9 @@ Patch7:		solidity-0007-Intentionally-failing-test.patch
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 3.0
 %if 0%{?fedora} >= 39
-BuildRequires:	cvc4-devel
-%else
 BuildRequires:	cvc5-devel
+%else
+BuildRequires:	cvc4-devel
 %endif
 BuildRequires:	fmt-devel
 BuildRequires:	gcc-c++
