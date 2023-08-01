@@ -37,7 +37,7 @@ similarity index 100%
 rename from libsmtutil/CVC4Interface.h
 rename to libsmtutil/CVC5Interface.h
 diff --git a/libsmtutil/SMTPortfolio.cpp b/libsmtutil/SMTPortfolio.cpp
-index 42aee2b0a..109e1a671 100644
+index a74181ac7..1f617a6ea 100644
 --- a/libsmtutil/SMTPortfolio.cpp
 +++ b/libsmtutil/SMTPortfolio.cpp
 @@ -22,7 +22,7 @@

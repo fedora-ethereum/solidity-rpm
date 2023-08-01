@@ -710,7 +710,7 @@ index cc3c0577c..a08e0f563 100644
  	static int const resourceLimit = 12000;
  };
 diff --git a/libsmtutil/SMTPortfolio.cpp b/libsmtutil/SMTPortfolio.cpp
-index 76c69d018..42aee2b0a 100644
+index 76c69d018..a74181ac7 100644
 --- a/libsmtutil/SMTPortfolio.cpp
 +++ b/libsmtutil/SMTPortfolio.cpp
 @@ -21,7 +21,7 @@
@@ -731,7 +731,7 @@ index 76c69d018..42aee2b0a 100644
 -		m_solvers.emplace_back(std::make_unique<CVC4Interface>(m_queryTimeout));
 +#ifdef HAVE_CVC5
 +	if (_enabledSolvers.cvc5)
-+		m_solvers.emplace_back(make_unique<CVC5Interface>(m_queryTimeout));
++		m_solvers.emplace_back(std::make_unique<CVC5Interface>(m_queryTimeout));
  #endif
  }
  
