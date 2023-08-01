@@ -14,6 +14,11 @@ Patch1:		solidity-0001-Use-system-wide-libs.patch
 Patch2:		solidity-0002-Stop-checking-for-jsoncpp-version.patch
 Patch3:		solidity-0003-Continue-on-big-endians.patch
 Patch4:		solidity-0004-Use-static-linking-for-internal-libs.patch
+%if 0%{?fedora} >= 39
+Patch5:		solidity-0005-SMTChecker-Update-CVC4-to-cvc5.patch
+Patch6:		solidity-0006-SMTChecker-Rename-CVC-interface-files.patch
+Patch7:		solidity-0007-Intentionally-failing-test.patch
+%endif
 
 
 %ifarch s390x
@@ -23,7 +28,11 @@ Patch4:		solidity-0004-Use-static-linking-for-internal-libs.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 3.0
+%if 0%{?fedora} >= 39
 BuildRequires:	cvc4-devel
+%else
+BuildRequires:	cvc5-devel
+%endif
 BuildRequires:	fmt-devel
 BuildRequires:	gcc-c++
 # Should be dependency of cvc4. See https://bugzilla.redhat.com/2203174

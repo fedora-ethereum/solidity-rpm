@@ -1,0 +1,21 @@
+From: Martin Blicha <martin.blicha@gmail.com>
+Date: Wed, 7 Jun 2023 23:28:31 +0200
+Subject: [PATCH] Intentionally failing test
+
+
+diff --git a/test/libsolidity/smtCheckerTests/simple/failing_test.sol b/test/libsolidity/smtCheckerTests/simple/failing_test.sol
+new file mode 100644
+index 000000000..cf67106b1
+--- /dev/null
++++ b/test/libsolidity/smtCheckerTests/simple/failing_test.sol
+@@ -0,0 +1,10 @@
++contract C {
++
++    function test() public {
++        assert(false);
++    }
++
++}
++// ====
++// SMTEngine: all
++// ----
