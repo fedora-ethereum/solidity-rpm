@@ -4,7 +4,7 @@ Subject: [PATCH] [SMTChecker]: Update CVC4 to cvc5
 
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index bc4234642..de18d46c1 100644
+index 192147241..e61ecd7de 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -124,15 +124,15 @@ elseif (${Z3_FOUND})
@@ -121,7 +121,7 @@ index 000000000..4373e680f
 +    set(CVC5_FOUND FALSE)
 +endif()
 diff --git a/docs/installing-solidity.rst b/docs/installing-solidity.rst
-index c46767366..a0bc9cdc3 100644
+index abafd0ad3..674bc9e4c 100644
 --- a/docs/installing-solidity.rst
 +++ b/docs/installing-solidity.rst
 @@ -330,10 +330,10 @@ The following are dependencies for all builds of Solidity:
@@ -164,10 +164,10 @@ index f8085b63d..ad2c7367f 100644
  *******************************
  Abstraction and False Positives
 diff --git a/docs/using-the-compiler.rst b/docs/using-the-compiler.rst
-index 3c0c1a70b..da605f014 100644
+index 0adcbf413..99a02115b 100644
 --- a/docs/using-the-compiler.rst
 +++ b/docs/using-the-compiler.rst
-@@ -458,7 +458,7 @@ Input Description
+@@ -461,7 +461,7 @@ Input Description
            "showUnsupported": true,
            // Choose which solvers should be used, if available.
            // See the Formal Verification section for the solvers description.
@@ -800,10 +800,10 @@ index 4a21f1841..f17395148 100644
  
  enum class CheckResult
 diff --git a/libsolidity/formal/BMC.cpp b/libsolidity/formal/BMC.cpp
-index cead3a528..1e291f7b3 100644
+index b16182af8..198110bcb 100644
 --- a/libsolidity/formal/BMC.cpp
 +++ b/libsolidity/formal/BMC.cpp
-@@ -52,15 +52,15 @@ BMC::BMC(
+@@ -51,15 +51,15 @@ BMC::BMC(
  	))
  {
  	solAssert(!_settings.printQuery || _settings.solvers == smtutil::SMTSolverChoice::SMTLIB2(), "Only SMTLib2 solver can be enabled to print queries");
@@ -823,8 +823,8 @@ index cead3a528..1e291f7b3 100644
  			);
  #endif
  }
-@@ -68,13 +68,13 @@ BMC::BMC(
- void BMC::analyze(SourceUnit const& _source, map<ASTNode const*, set<VerificationTargetType>, smt::EncodingContext::IdCompare> _solvedTargets)
+@@ -67,13 +67,13 @@ BMC::BMC(
+ void BMC::analyze(SourceUnit const& _source, std::map<ASTNode const*, std::set<VerificationTargetType>, smt::EncodingContext::IdCompare> _solvedTargets)
  {
  	// At this point every enabled solver is available.
 -	if (!m_settings.solvers.cvc4 && !m_settings.solvers.smtlib2 && !m_settings.solvers.z3)
@@ -839,7 +839,7 @@ index cead3a528..1e291f7b3 100644
  		);
  		return;
  	}
-@@ -124,7 +124,7 @@ void BMC::analyze(SourceUnit const& _source, map<ASTNode const*, set<Verificatio
+@@ -123,7 +123,7 @@ void BMC::analyze(SourceUnit const& _source, std::map<ASTNode const*, std::set<V
  				);
  
  
@@ -848,7 +848,7 @@ index cead3a528..1e291f7b3 100644
  	// and the query answers were not provided, since SMTPortfolio
  	// guarantees that SmtLib2Interface is the first solver, if enabled.
  	if (
-@@ -135,7 +135,7 @@ void BMC::analyze(SourceUnit const& _source, map<ASTNode const*, set<Verificatio
+@@ -134,7 +134,7 @@ void BMC::analyze(SourceUnit const& _source, std::map<ASTNode const*, std::set<V
  		m_errorReporter.warning(
  			8084_error,
  			SourceLocation(),
@@ -856,12 +856,12 @@ index cead3a528..1e291f7b3 100644
 +			"BMC analysis was not possible. No SMT solver (Z3 or cvc5) was available."
  			" None of the installed solvers was enabled."
  #ifdef HAVE_Z3_DLOPEN
- 			" Install libz3.so." + to_string(Z3_MAJOR_VERSION) + "." + to_string(Z3_MINOR_VERSION) + " to enable Z3."
+ 			" Install libz3.so." + std::to_string(Z3_MAJOR_VERSION) + "." + std::to_string(Z3_MINOR_VERSION) + " to enable Z3."
 diff --git a/libsolidity/formal/ModelChecker.cpp b/libsolidity/formal/ModelChecker.cpp
-index bc97c5534..26c44b5b2 100644
+index 5632ff5c4..9dc29f686 100644
 --- a/libsolidity/formal/ModelChecker.cpp
 +++ b/libsolidity/formal/ModelChecker.cpp
-@@ -170,8 +170,8 @@ SMTSolverChoice ModelChecker::availableSolvers()
+@@ -169,8 +169,8 @@ SMTSolverChoice ModelChecker::availableSolvers()
  #ifdef HAVE_Z3
  	available.z3 = solidity::smtutil::Z3Interface::available();
  #endif
@@ -872,7 +872,7 @@ index bc97c5534..26c44b5b2 100644
  #endif
  	return available;
  }
-@@ -180,13 +180,13 @@ SMTSolverChoice ModelChecker::checkRequestedSolvers(SMTSolverChoice _enabled, Er
+@@ -179,13 +179,13 @@ SMTSolverChoice ModelChecker::checkRequestedSolvers(SMTSolverChoice _enabled, Er
  {
  	SMTSolverChoice availableSolvers{ModelChecker::availableSolvers()};
  
@@ -890,14 +890,14 @@ index bc97c5534..26c44b5b2 100644
  	}
  
 diff --git a/solc/CommandLineParser.cpp b/solc/CommandLineParser.cpp
-index 060c1ad8f..cf3a9f1bf 100644
+index 0c7484fd4..3965b7b66 100644
 --- a/solc/CommandLineParser.cpp
 +++ b/solc/CommandLineParser.cpp
-@@ -860,7 +860,7 @@ General Information)").c_str(),
+@@ -876,7 +876,7 @@ General Information)").c_str(),
  		)
  		(
  			g_strModelCheckerSolvers.c_str(),
--			po::value<string>()->value_name("cvc4,eld,z3,smtlib2")->default_value("z3"),
+-			po::value<std::string>()->value_name("cvc4,eld,z3,smtlib2")->default_value("z3"),
 +			po::value<string>()->value_name("cvc5,eld,z3,smtlib2")->default_value("z3"),
  			"Select model checker solvers."
  		)
@@ -947,10 +947,10 @@ index ebeca53f5..86cef81dc 100644
              "type": "Warning"
          }
 diff --git a/test/libsolidity/SMTCheckerTest.h b/test/libsolidity/SMTCheckerTest.h
-index 965705f30..4e014e5b5 100644
+index d42572dc5..884e09a37 100644
 --- a/test/libsolidity/SMTCheckerTest.h
 +++ b/test/libsolidity/SMTCheckerTest.h
-@@ -53,7 +53,7 @@ protected:
+@@ -54,7 +54,7 @@ protected:
  		Set in m_modelCheckerSettings.
  	SMTShowUnproved: `yes`, `no`, where the default is `yes`.
  		Set in m_modelCheckerSettings.

@@ -5,10 +5,10 @@ Subject: [PATCH] Use static linking for internal libs
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/libevmasm/CMakeLists.txt b/libevmasm/CMakeLists.txt
-index 6563b2c0f..9961abddf 100644
+index c1918540e..f9e58bd8f 100644
 --- a/libevmasm/CMakeLists.txt
 +++ b/libevmasm/CMakeLists.txt
-@@ -39,5 +39,5 @@ set(sources
+@@ -42,5 +42,5 @@ set(sources
  	SimplificationRules.h
  )
  
@@ -53,22 +53,21 @@ index fce54dd24..7f21284d7 100644
  	target_link_libraries(libsolc PRIVATE solidity)
  endif()
 diff --git a/libsolidity/CMakeLists.txt b/libsolidity/CMakeLists.txt
-index 32869ba13..0bb63970e 100644
+index 0a8c90f36..333fa10eb 100644
 --- a/libsolidity/CMakeLists.txt
 +++ b/libsolidity/CMakeLists.txt
-@@ -184,6 +184,5 @@ set(sources
+@@ -186,5 +186,5 @@ set(sources
  	parsing/Token.h
  )
  
 -add_library(solidity ${sources})
 +add_library(solidity STATIC ${sources})
  target_link_libraries(solidity PUBLIC yul evmasm langutil smtutil solutil Boost::boost fmt::fmt-header-only Threads::Threads)
--
 diff --git a/libsolutil/CMakeLists.txt b/libsolutil/CMakeLists.txt
-index 201429bb7..9e87a5f0a 100644
+index f97d61b67..34f988021 100644
 --- a/libsolutil/CMakeLists.txt
 +++ b/libsolutil/CMakeLists.txt
-@@ -44,7 +44,7 @@ set(sources
+@@ -42,7 +42,7 @@ set(sources
  	Whiskers.h
  )
  
@@ -78,7 +77,7 @@ index 201429bb7..9e87a5f0a 100644
  target_include_directories(solutil PUBLIC "${PROJECT_SOURCE_DIR}")
  add_dependencies(solutil solidity_BuildInfo.h)
 diff --git a/libyul/CMakeLists.txt b/libyul/CMakeLists.txt
-index 0bb98e467..8bd85e398 100644
+index 811a6239b..b3eae7536 100644
 --- a/libyul/CMakeLists.txt
 +++ b/libyul/CMakeLists.txt
 @@ -1,4 +1,4 @@
