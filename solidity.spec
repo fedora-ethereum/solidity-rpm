@@ -23,8 +23,10 @@ Patch4:		solidity-0004-Use-static-linking-for-internal-libs.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 3.0
+%if 0%{?fedora} < 39
+BuildRequires:	cvc4-devel
+%endif
 #BuildRequires:	cvc5-devel
-#BuildRequires:	cvc4-devel
 BuildRequires:	fmt-devel
 BuildRequires:	gcc-c++
 # Should be dependency of cvc4. See https://bugzilla.redhat.com/2203174
