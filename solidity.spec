@@ -1,10 +1,10 @@
 # Git hash of a tagged commit
-%global git_hash f704f362dbb2a0af54d1484eb50cdafbc7dc086d
+%global git_hash e11b9ed9f2c254bc894d844c0a64a0eb76bbb4fd
 %undefine _package_note_file
 
 Summary:	Object-oriented, high-level language for implementing smart contracts
 Name:		solidity
-Version:	0.8.23
+Version:	0.8.24
 Release:	%autorelease
 URL:		https://docs.soliditylang.org/
 Source0:	https://github.com/ethereum/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -45,16 +45,11 @@ within the Ethereum state.
 
 
 %prep
-%setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%autosetup -p1
 echo %{git_hash} > commit_hash.txt
 
 
 %build
-#-DUSE_LD_GOLD:BOOL=OFF
 %{cmake} \
 	-DBoost_USE_STATIC_LIBS:BOOL=OFF \
 	-DSTRICT_Z3_VERSION:BOOL=OFF \

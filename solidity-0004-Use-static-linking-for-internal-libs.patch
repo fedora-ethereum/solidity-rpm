@@ -53,11 +53,11 @@ index fce54dd24..7f21284d7 100644
  	target_link_libraries(libsolc PRIVATE solidity)
  endif()
 diff --git a/libsolidity/CMakeLists.txt b/libsolidity/CMakeLists.txt
-index 0a8c90f36..333fa10eb 100644
+index 3db857241..1a5fbcefb 100644
 --- a/libsolidity/CMakeLists.txt
 +++ b/libsolidity/CMakeLists.txt
-@@ -186,5 +186,5 @@ set(sources
- 	parsing/Token.h
+@@ -214,5 +214,5 @@ set(sources
+ 	experimental/codegen/IRGeneratorForStatements.h
  )
  
 -add_library(solidity ${sources})

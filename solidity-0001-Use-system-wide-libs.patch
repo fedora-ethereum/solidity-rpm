@@ -5,7 +5,7 @@ Subject: [PATCH] Use system-wide libs
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 298df418c..4eac2033e 100644
+index f6a905e39..b33ff948e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -43,10 +43,12 @@ include(EthCcache)
