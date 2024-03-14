@@ -16,10 +16,10 @@ index c1918540e..f9e58bd8f 100644
 +add_library(evmasm STATIC ${sources})
  target_link_libraries(evmasm PUBLIC solutil fmt::fmt-header-only)
 diff --git a/liblangutil/CMakeLists.txt b/liblangutil/CMakeLists.txt
-index 53be57e79..8d6f67e69 100644
+index 054d01d91..469bdd216 100644
 --- a/liblangutil/CMakeLists.txt
 +++ b/liblangutil/CMakeLists.txt
-@@ -29,5 +29,5 @@ set(sources
+@@ -30,5 +30,5 @@ set(sources
  	UniqueErrorReporter.h
  )
  
