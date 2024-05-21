@@ -5,7 +5,7 @@ Subject: [PATCH] Continue on big-endians
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 685d1eee5..16357becd 100644
+index 19ed6dcae..e7de52008 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -29,7 +29,7 @@ project(solidity VERSION ${PROJECT_VERSION} LANGUAGES C CXX)

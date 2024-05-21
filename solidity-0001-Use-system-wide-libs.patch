@@ -5,23 +5,17 @@ Subject: [PATCH] Use system-wide libs
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 18af34d26..685d1eee5 100644
+index 91c1056ec..19ed6dcae 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -43,10 +43,12 @@ include(EthCcache)
- 
- # Let's find our dependencies
- include(EthDependencies)
--include(fmtlib)
--include(jsoncpp)
--include(range-v3)
--include_directories(SYSTEM ${JSONCPP_INCLUDE_DIR})
-+
-+find_package(fmt CONFIG REQUIRED)
-+find_package(jsoncpp CONFIG REQUIRED)
-+find_package(range-v3 CONFIG REQUIRED)
-+
-+#include_directories(SYSTEM ${FMTLIB_INCLUDE_DIR} ${JSONCPP_INCLUDE_DIR} ${RANGE_V3_INCLUDE_DIR})
+@@ -53,6 +53,10 @@ if (NOT USE_SYSTEM_LIBRARIES)
+   include(fmtlib)
+   include(nlohmann-json)
+   include(range-v3)
++else()
++  find_package(fmt CONFIG REQUIRED)
++  find_package(nlohmann-json CONFIG REQUIRED)
++  find_package(range-v3 CONFIG REQUIRED)
+ endif()
  
  find_package(Threads)
- 

@@ -1,14 +1,14 @@
 # Git hash of a tagged commit
-%global git_hash b61c2a91b3a478bd53fb831b0e8811668bc0dd05
+%global git_hash 8a97fa7a1db1ec509221ead6fea6802c684ee887
 %undefine _package_note_file
 
 Summary:	Object-oriented, high-level language for implementing smart contracts
 Name:		solidity
-Version:	0.8.25
+Version:	0.8.26
 Release:	%autorelease
 URL:		https://docs.soliditylang.org/
 Source0:	https://github.com/ethereum/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-License:	GPLv3
+License:	GPL-3.0-only
 # Fedora-specific
 Patch1:		solidity-0001-Use-system-wide-libs.patch
 Patch2:		solidity-0002-Stop-checking-for-jsoncpp-version.patch
@@ -25,17 +25,16 @@ BuildRequires:	boost-devel
 BuildRequires:	cmake >= 3.0
 %if 0%{?fedora} < 39
 BuildRequires:	cvc4-devel
-%endif
-#BuildRequires:	cvc5-devel
-BuildRequires:	fmt-devel
-BuildRequires:	gcc-c++
 # Should be dependency of cvc4. See https://bugzilla.redhat.com/2203174
 BuildRequires:	gmp-devel
 # Should be dependency of cvc4. See https://bugzilla.redhat.com/2203174
 BuildRequires:	symfpu-devel
-BuildRequires:	jsoncpp-devel
-BuildRequires:	range-v3-devel
-BuildRequires:	z3-devel
+%endif
+BuildRequires:	cmake(fmt)
+BuildRequires:	cmake(nlohmann_json)
+BuildRequires:	cmake(range-v3)
+BuildRequires:	cmake(z3)
+BuildRequires:	gcc-c++
 
 
 %description
@@ -51,8 +50,10 @@ echo %{git_hash} > commit_hash.txt
 
 %build
 %{cmake} \
+	-DUSE_SYSTEM_LIBRARIES:BOOL=ON \
 	-DBoost_USE_STATIC_LIBS:BOOL=OFF \
 	-DSTRICT_Z3_VERSION:BOOL=OFF \
+	-DSTRICT_NLOHMANN_JSON_VERSION:BOOL=OFF \
 	-DTESTS:BOOL=OFF
 %cmake_build
 
