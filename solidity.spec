@@ -13,6 +13,7 @@ License:	GPL-3.0-only
 Patch1:		solidity-0001-Use-system-wide-libs.patch
 Patch2:		solidity-0002-Continue-on-big-endians.patch
 Patch3:		solidity-0003-Use-static-linking-for-internal-libs.patch
+Patch4:		solidity-0004-We-don-t-have-nlohmann-json-library-only-header.patch
 
 
 %ifarch s390x
