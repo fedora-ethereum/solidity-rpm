@@ -5,7 +5,7 @@ Subject: [PATCH] Use system-wide libs
 Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 91c1056ec..19ed6dcae 100644
+index 91c1056ec..c2b17b363 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -53,6 +53,10 @@ if (NOT USE_SYSTEM_LIBRARIES)
@@ -14,7 +14,7 @@ index 91c1056ec..19ed6dcae 100644
    include(range-v3)
 +else()
 +  find_package(fmt CONFIG REQUIRED)
-+  find_package(nlohmann-json CONFIG REQUIRED)
++  find_package(nlohmann_json CONFIG REQUIRED)
 +  find_package(range-v3 CONFIG REQUIRED)
  endif()
  
