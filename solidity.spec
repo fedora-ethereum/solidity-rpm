@@ -10,7 +10,7 @@ URL:		https://docs.soliditylang.org/
 Source0:	https://github.com/ethereum/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 License:	GPL-3.0-only
 # Fedora-specific
-Patch1:		solidity-0001-Use-system-wide-libs.patch
+#Patch1:		solidity-0001-Use-system-wide-libs.patch
 Patch2:		solidity-0002-Continue-on-big-endians.patch
 Patch3:		solidity-0003-Use-static-linking-for-internal-libs.patch
 
