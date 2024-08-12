@@ -1,0 +1,27 @@
+From: Alexander Arlt <alexander.arlt@arlt-labs.com>
+Date: Mon, 29 Jul 2024 13:43:09 +0200
+Subject: [PATCH] Update fmtlib to v11.0.2.
+
+
+diff --git a/libyul/AsmAnalysis.cpp b/libyul/AsmAnalysis.cpp
+index 1972d2674..5b5517964 100644
+--- a/libyul/AsmAnalysis.cpp
++++ b/libyul/AsmAnalysis.cpp
+@@ -672,7 +672,7 @@ void AsmAnalyzer::expectValidType(YulString _type, SourceLocation const& _locati
+ 		m_errorReporter.typeError(
+ 			5473_error,
+ 			_location,
+-			fmt::format("\"{}\" is not a valid type (user defined types are not yet supported).", _type)
++			fmt::format("\"{}\" is not a valid type (user defined types are not yet supported).", _type.str())
+ 		);
+ }
+ 
+@@ -682,7 +682,7 @@ void AsmAnalyzer::expectType(YulString _expectedType, YulString _givenType, Sour
+ 		m_errorReporter.typeError(
+ 			3781_error,
+ 			_location,
+-			fmt::format("Expected a value of type \"{}\" but got \"{}\".", _expectedType, _givenType)
++			fmt::format("Expected a value of type \"{}\" but got \"{}\".", _expectedType.str(), _givenType.str())
+ 		);
+ }
+ 

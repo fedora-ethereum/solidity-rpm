@@ -14,6 +14,7 @@ Patch1:		solidity-0001-Use-system-wide-libs.patch
 Patch2:		solidity-0002-Continue-on-big-endians.patch
 Patch3:		solidity-0003-Use-static-linking-for-internal-libs.patch
 Patch4:		solidity-0004-We-don-t-have-nlohmann-json-library-only-header.patch
+Patch4:		solidity-0005-Update-fmtlib-to-v11.0.2.patch
 
 
 %ifarch s390x
